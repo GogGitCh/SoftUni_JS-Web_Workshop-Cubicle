@@ -1,8 +1,7 @@
 const express = require("express");
 const expressConfigurator = require("./config/expressConfig");
 const handlebarsConfigurator = require("./config/handlebars");
-const homeController = require("./controllers/homeController");
-const cubeController = require("./controllers/cubeController");
+const routes = require('./routes')
 const path = require("path");
 const PORT = 4040;
 
@@ -14,13 +13,7 @@ expressConfigurator(app);
 handlebarsConfigurator(app);
 
 //Routes
-app.use(homeController);
-app.use('/cubes', cubeController);
-
-
-app.get('*', (req, res) => {
-    res.redirect('/404');
-})
+app.use(routes);
 
 app.listen(PORT, () => {
   console.log(`Express app running on port:${PORT}`);
