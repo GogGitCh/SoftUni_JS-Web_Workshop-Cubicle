@@ -17,6 +17,11 @@ handlebarsConfigurator(app);
 app.use(homeController);
 app.use('/cubes', cubeController);
 
+
+app.get('*', (req, res) => {
+    res.redirect('/404');
+})
+
 app.listen(PORT, () => {
   console.log(`Express app running on port:${PORT}`);
 });
