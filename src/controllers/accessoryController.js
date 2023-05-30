@@ -5,10 +5,11 @@ router.get('/create', (req, res) => {
 })
 
 
-// router.post('/create', (req, res) => {
-//     const accessoryData = req.body;
-//     console.log(accessoryData);
-
-// });
+router.post('/create', (req, res) => {
+    const body = req.body;
+    console.log(body);
+    // TODO: Add accessory data to DB
+    res.redirect('/');
+});
 
 module.exports = router
