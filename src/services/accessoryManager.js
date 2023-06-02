@@ -1,8 +1,10 @@
-const Accessory = require('../models/Accessory')
-
+const Accessory = require("../models/Accessory");
 
 exports.create = (accessoryData) => {
-    Accessory.create(accessoryData);
+  Accessory.create(accessoryData);
 };
 
 exports.getAll = () => Accessory.find();
+
+exports.getNonincludedYet = (accessoryIds) => Accessory.find({ _id: { $nin: accessoryIds } });
+
