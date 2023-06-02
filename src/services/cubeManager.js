@@ -26,3 +26,15 @@ exports.create = async (cubeData) => {
   return cube;
 };
 
+exports.attachAccessory = async (cubeId, accessoryId) => {
+  // Update Method 1
+  // return Cube.findByIdAndUpdate(cubeId,{$push:{ accessories:accessoryId }})
+  
+  // Update Method 2
+  const cube  = await Cube.findById(cubeId);
+  cube.accessories.push(accessoryId);
+
+  return cube.save();
+
+}
+
