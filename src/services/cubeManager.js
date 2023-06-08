@@ -23,9 +23,13 @@ exports.getOneWithAccessories = (cubeId) => this.getOne(cubeId).populate('access
 exports.create = async (cubeData) => {
   const cube = new Cube(cubeData);
   await cube.save();
-
+  
   return cube;
 };
+
+exports.update = (cubeId, cubeData) => Cube.findByIdAndUpdate(cubeId, cubeData)
+
+exports.delete = (cubeId) => Cube.findByIdAndDelete(cubeId)
 
 exports.attachAccessory = async (cubeId, accessoryId) => {
   // Update Method 1
@@ -38,4 +42,5 @@ exports.attachAccessory = async (cubeId, accessoryId) => {
   return cube.save();
 
 }
+
 
