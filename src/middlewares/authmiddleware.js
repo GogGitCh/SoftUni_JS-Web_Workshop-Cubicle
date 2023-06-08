@@ -1,7 +1,7 @@
 const jwt = require("../lib/jwt");
 const { SECRET } = require("../config/config");
 
-exports.auth = async (req, res, mext) => {
+exports.auth = async (req, res, next) => {
   const token = req.cookies["auth"];
 
   if (token) {
@@ -16,7 +16,5 @@ exports.auth = async (req, res, mext) => {
     }
   } else {
       next();
-  }
-
-  next();
+  } 
 };
