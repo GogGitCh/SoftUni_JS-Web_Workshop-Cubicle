@@ -3,9 +3,22 @@ const bcrypt = require("bcrypt");
 const SALT_CYCLES = 5;
 
 const userSchema = new mongoose.Schema({
-  username: String,
+  username: {
+    type: String,
+    required: true,
+    minLength: 5,
+    match:/^[A-Za-z0-9]+$/,
+    unique:true,
+  },
   password: {
     type: String,
+    required: true,
+    validate:{ function (value) {
+      return /^[A-Za-z0-9]+$/.test(value);
+    },
+    message:`Inavalid password charcters!`,
+    },
+    minLength:8,
   },
 });
 
@@ -18,10 +31,10 @@ userSchema.virtual("repeatPassword").set(function (value) {
   }
 });
 
-userSchema.pre('save', async function () {
-    const hash = await bcrypt.hash(this.password, SALT_CYCLES);
-    this.password = hash;
-})
+userSchema.pre("save", async function () {
+  const hash = await bcrypt.hash(this.password, SALT_CYCLES);
+  this.password = hash;
+});
 
 const User = mongoose.model("User", userSchema);
 
