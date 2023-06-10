@@ -5,15 +5,15 @@ const SALT_CYCLES = 5;
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    minLength: 5,
-    match:/^[A-Za-z0-9]+$/,
+    required: [true,'Username is required!'],
+    minLength: [5, 'Password is too short!'],
+    match:[/^[A-Za-z0-9]+$/,'Username must be alphanumeric'],
     unique:true,
   },
   password: {
     type: String,
-    required: true,
-    validate:{ function (value) {
+    required: [true, 'Password is required!'],
+    validate:{validator: function (value) {
       return /^[A-Za-z0-9]+$/.test(value);
     },
     message:`Inavalid password charcters!`,
@@ -27,7 +27,7 @@ userSchema.virtual("repeatPassword").set(function (value) {
   console.log(this.password);
   console.log(this.repassword);
   if (value !== this.password) {
-    throw new mongoose.MongooseError(`Password missmatch!`);
+    throw new Error('Password missmatch!')
   }
 });
 

@@ -3,6 +3,7 @@ const dbConfig = require("./config/dbConfig");
 const expressConfigurator = require("./config/expressConfig");
 const handlebarsConfigurator = require("./config/handlebars");
 const routes = require('./routes')
+const errorHandler = require('./middlewares/errorHandlerMiddleware');
 const PORT = 4040;
 
 // Express config
@@ -19,6 +20,9 @@ dbConfig()
 
 //Routes
 app.use(routes);
+
+// Error hadle
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`*************************************** Express app running on port:${PORT}**************************************************`);
